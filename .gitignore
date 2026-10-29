@@ -1,0 +1,19 @@
+# System files
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python / Backend (future)
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.db
+.env
+venv/
+.venv/

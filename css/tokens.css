@@ -1,0 +1,118 @@
+/**
+ * BLACKOUT: RESTORE THE GRID
+ * Design Tokens & Theme Specification
+ * Sphinx @ MNIT Jaipur
+ */
+
+:root {
+  /* ========================================================================
+     1. COLOR PALETTE: CORE SURFACES (Deep Black & Charcoal)
+     ======================================================================== */
+  --bg-void: #050608;              /* Deepest base background */
+  --bg-surface: #0a0d14;           /* Primary control-room panel surface */
+  --bg-surface-elevated: #111622;  /* Elevated HUD cards and modules */
+  --bg-surface-hover: #182030;     /* Interactive hover state for cards */
+  --bg-surface-overlay: rgba(10, 13, 20, 0.92); /* Glass backdrop with fallback */
+
+  /* ========================================================================
+     2. ACCENTS & SEMANTIC SYSTEM STATES
+     ======================================================================== */
+  /* Primary Accent: Electric Cyan (Grid Power & Active Signals) */
+  --cyan-primary: #00f0ff;
+  --cyan-hover: #33f3ff;
+  --cyan-active: #00c8d6;
+  --cyan-dim: rgba(0, 240, 255, 0.12);
+  --cyan-glow-subtle: rgba(0, 240, 255, 0.25);
+  --cyan-border: rgba(0, 240, 255, 0.28);
+  --cyan-border-bright: rgba(0, 240, 255, 0.65);
+
+  /* Success State: Restrained Emerald Green (Restored Substation / Safe) */
+  --green-restored: #00e676;
+  --green-dim: rgba(0, 230, 118, 0.12);
+  --green-glow-subtle: rgba(0, 230, 118, 0.25);
+  --green-border: rgba(0, 230, 118, 0.35);
+
+  /* Alert / Critical Warning: Amber (Substation Offline / Warning) */
+  --amber-alert: #ffb300;
+  --amber-dim: rgba(255, 179, 0, 0.12);
+  --amber-glow-subtle: rgba(255, 179, 0, 0.25);
+  --amber-border: rgba(255, 179, 0, 0.35);
+
+  /* Severe Offline / Failure: Crimson Red */
+  --crimson-offline: #ff2a55;
+  --crimson-dim: rgba(255, 42, 85, 0.12);
+  --crimson-border: rgba(255, 42, 85, 0.35);
+
+  /* ========================================================================
+     3. TYPOGRAPHY SYSTEM
+     ======================================================================== */
+  --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Source Code Pro", Menlo, Consolas, "Courier New", monospace;
+  
+  --text-2xs: 0.6875rem; /* 11px - Micro telemetry labels */
+  --text-xs:  0.75rem;   /* 12px - Badges, status markers */
+  --text-sm:  0.875rem;  /* 14px - Auxiliary metadata, hints */
+  --text-base: 1rem;     /* 16px - Standard body text */
+  --text-lg:  1.125rem;  /* 18px - Lead paragraphs, card titles */
+  --text-xl:  1.375rem;  /* 22px - Subheadings */
+  --text-2xl: 1.75rem;   /* 28px - Module titles */
+  --text-3xl: 2.25rem;   /* 36px - Section titles */
+  --text-4xl: 3rem;      /* 48px - Primary hero headlines */
+  --text-5xl: 4rem;      /* 64px - Large display numbers */
+
+  --text-primary: #f0f4f8;   /* 14.5:1 contrast against void */
+  --text-secondary: #94a3b8; /* 5.8:1 contrast against void - passes WCAG AA */
+  --text-tertiary: #64748b;  /* Metadata & inactive borders */
+
+  /* ========================================================================
+     4. SPACING & LAYOUT GRID
+     ======================================================================== */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+
+  --container-max: 1240px;
+  --container-pad: 1.5rem;
+
+  /* ========================================================================
+     5. BORDERS, RADII & TACTICAL CORNERS
+     ======================================================================== */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --border-subtle: 1px solid rgba(255, 255, 255, 0.08);
+  --border-cyan: 1px solid var(--cyan-border);
+  --border-amber: 1px solid var(--amber-border);
+  --border-green: 1px solid var(--green-border);
+
+  /* ========================================================================
+     6. SHADOWS & CONTROLLED ATMOSPHERIC GLOWS
+     ======================================================================== */
+  --glow-cyan-sm: 0 0 12px var(--cyan-glow-subtle);
+  --glow-cyan-md: 0 0 24px var(--cyan-glow-subtle), 0 0 4px var(--cyan-primary);
+  --glow-green-sm: 0 0 12px var(--green-glow-subtle);
+  --glow-amber-sm: 0 0 12px var(--amber-glow-subtle);
+  --shadow-elevation: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+
+  /* ========================================================================
+     7. TRANSITIONS & TIMINGS
+     ======================================================================== */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ========================================================================
+     8. ACCESSIBILITY FOCUS INDICATOR
+     ======================================================================== */
+  --focus-ring: 2px solid var(--cyan-primary);
+  --focus-offset: 3px;
+}
