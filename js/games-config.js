@@ -56,3 +56,8 @@ export const GAMES_CONFIG = [
     structureInfo: "Unified score across all stages"
   }
 ];
+
+export function getGameById(id) {
+  if (!id) return null;
+  return GAMES_CONFIG.find(game => game.id.toLowerCase() === id.toLowerCase()) || null;
+}

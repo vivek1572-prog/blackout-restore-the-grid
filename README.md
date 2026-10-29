@@ -4,36 +4,39 @@
 
 ---
 
-## Phase 1 Milestone: Design System, Centralized Architecture & Landing Page
+## Phase 2 Milestone: Remaining Website Pages & Navigation
 
-This milestone establishes the foundational design system tokens, responsive control-room visual architecture, centralized game configuration, and a self-contained landing page adhering strictly to confirmed requirements.
+Phase 2 extends the platform with the full set of explicitly authorized frontend pages, client-side routing, and interactive views while strictly preserving the approved design system and centralized game configuration.
 
-### Key Features Implemented
+### Authorized Pages Implemented
 
-1. **Centralized Game Configuration (`js/games-config.js`)**:
-   - Single structured source of truth for the five temporary game entries (`Game 01` through `Game 05`).
-   - The five game preview cards in `#games` and the channel tabs in `#leaderboards` are dynamically rendered from this shared configuration rather than duplicated in markup.
-   - Future game names, descriptions, and settings can be modified in this single file without touching the layout HTML or shared components.
+| Route | Page | Description |
+| :--- | :--- | :--- |
+| `#/` | **Command Center (Landing Page)** | The approved Phase 1 landing page with exact headline `"THE GRID IS DOWN."`, circuit SVG schematic, and 5-game preview. |
+| `#/games` | **Games Directory** | Directory displaying the five game entries (`Game 01` through `Game 05`) from `GAMES_CONFIG` with links to details and leaderboards. |
+| `#/games/:id` | **Game Details** | Reusable template displaying game name, placeholder briefing, leaderboard note, and a non-functional "Launch Game Shell" action with explicit disclaimer. |
+| `#/how-to-play` | **How to Play** | General information page presenting the confirmed 4-step participation flow and explicit notice that game-specific rules will follow. |
+| `#/register` | **Terminal Registration** | Form with **strictly three fields** (`Full Name`, `College ID`, `College Name`), required-field validation, and an honest demonstration state message (no database persistence). |
+| `#/leaderboards` | **Leaderboards Console** | Five dedicated game leaderboard channels (`Game 01` – `Game 05`), unified per-game score rule (no per-stage division), and an honest standby state without fabricated scores. |
+| `#/play/:id` | **Gameplay Shell** | Reusable, non-functional gameplay layout shell identifying the selected game with a prominent `"SPECIFICATION IN PROGRESS"` banner. |
+| `#/results/:id` | **Results Layout** | Minimal reusable results framework displaying placeholder metrics (`--`) with explicit notice that genuine results will stream once games are deployed. |
+| `*` | **Not Found (404)** | Clean cyber-terminal 404 error view with a working return link to the command center. |
 
-2. **Self-Contained Design System (`css/tokens.css`, `css/base.css`, `css/components.css`)**:
-   - **Color Palette:** Deep black void (`#050608`), charcoal surfaces (`#0a0d14`, `#111622`), electric cyan primary accents (`#00f0ff`), restrained status green (`#00e676`), and alert amber (`#ffb300`).
-   - **Contrast & Accessibility:** Full WCAG 2.2 AA contrast compliance.
-   - **Zero External Dependencies:** Native HTML5, modern CSS custom properties, and standard ES modules. No Google Fonts, CDN scripts, or external graphics required.
-   - **Performance-Conscious UI:** Hardware-accelerated CSS transforms and gradient masks instead of heavy multi-pass blur filters.
+---
 
-3. **Landing Page Architecture (`index.html`, `css/landing.css`, `js/main.js`)**:
-   - **A. Navigation:** Sticky command bar with Blackout branding, Sphinx @ MNIT Jaipur attribution, navigation links to implemented sections, and a responsive mobile drawer menu.
-   - **B. Hero Section:** Confirmed headline **"THE GRID IS DOWN. RESTORE THE GRID."** with platform narrative, primary/secondary action triggers, and an inline SVG schematic of a disrupted power grid with 5 disconnected game nodes.
-   - **C. Game Preview:** Exactly five cards (`Game 01` through `Game 05`) rendered dynamically from `js/games-config.js`, with explicit placeholder indicators. No invented mechanics or fake difficulty ratings. Includes an accessible slot inspection modal (`<dialog>`).
-   - **D. Leaderboards Entry:** Standalone leaderboard architecture explaining that each game has its own dedicated leaderboard with no per-level fragmentation. Interactive tablist switching channels across Game 01 – Game 05 with truthful standby states.
-   - **E. How to Play:** 4-step mission flow (Register, Choose a Game, Play, View Leaderboard) with explicit disclaimers regarding unconfirmed rules and scoring mechanics.
-   - **F. Footer:** Project name and Sphinx at MNIT Jaipur identification with truthful in-page navigation links.
+## Centralized Game Configuration
+
+All five game entries remain strictly defined in:
+👉 [`js/games-config.js`](file:///Users/vivekkumar/CRYX/js/games-config.js)
+
+- **Configurable Content:** Game names, descriptions, status labels, and leaderboard associations can be updated in this single file to automatically refresh the landing preview, games directory, details pages, and leaderboard tabs.
+- **Code Change Boundaries:** Interactive game mechanics, scoring algorithms, and backend database persistence will require code modifications in future phases once confirmed.
 
 ---
 
 ## Local Execution Instructions
 
-To preview the landing page on any laptop:
+To run the application locally on any laptop:
 
 ### Option 1: Using Python 3 (Installed)
 ```bash
@@ -46,14 +49,15 @@ Then open [http://localhost:8000](http://localhost:8000) in any modern browser.
 npx serve -l 8000 .
 ```
 
+Direct page refreshes (e.g. `http://localhost:8000/#/register`) work natively via client-side hash routing.
+
 ---
 
-## Verification Checklist
+## Verification & Quality Checklist
 
-- [x] **No Unapproved Additions:** Removed all unapproved extras (unrequested live clock, audio buttons, invented statistics, and fake substation names).
-- [x] **Centralized Configuration:** The five game entries are stored in `js/games-config.js` and rendered dynamically.
-- [x] **No Unimplemented Routes:** All navigation links scroll smoothly to real, implemented sections (`#overview`, `#games`, `#leaderboards`, `#how-to-play`).
-- [x] **Truthful States:** No simulated fake scores, fabricated backend calls, or invented game mechanics.
-- [x] **Responsive Layout:** Tested across desktop widescreen, tablet, and mobile (no horizontal overflow).
-- [x] **Accessibility:** Proper skip-link, semantic landmarks, ARIA tablist/tabpanel, native `<dialog>` modal with keyboard focus trapping and Escape key support, `:focus-visible` outlines.
-- [x] **Reduced Motion Support:** `@media (prefers-reduced-motion: reduce)` disables animations and continuous pulsing.
+- [x] **No Unapproved Additions:** Zero invented game mechanics, scoring rules, timer rules, fake participant scores, or fake official logos.
+- [x] **Registration Scoped Strictly:** Only `Full Name`, `College ID`, and `College Name`. No unapproved fields.
+- [x] **Truthful States:** The registration form clearly communicates demonstration state without implying permanent data storage; leaderboards show honest standby states without fabricated ranks.
+- [x] **Complete Routing Coverage:** All 9 authorized routes tested and verified.
+- [x] **Responsive Layout:** Desktop, tablet, and mobile layouts verified with zero horizontal overflow.
+- [x] **Accessibility:** High-contrast visible focus rings, WCAG 2.2 AA contrast compliance, ARIA tablist/tabpanel, keyboard navigation, and reduced-motion support.
