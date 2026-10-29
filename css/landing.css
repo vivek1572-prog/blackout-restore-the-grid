@@ -225,11 +225,6 @@
   color: var(--text-primary);
 }
 
-.hero-headline-highlight {
-  color: var(--cyan-primary);
-  text-shadow: var(--glow-cyan-sm);
-  display: block;
-}
 
 .hero-lead {
   font-size: var(--text-lg);
@@ -246,46 +241,6 @@
   margin-bottom: var(--space-10);
 }
 
-/* Hero Telemetry Meter */
-.hero-telemetry-bar {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
-  width: 100%;
-  max-width: 600px;
-  padding: var(--space-4);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xs);
-}
-
-@media (max-width: 600px) {
-  .hero-telemetry-bar {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-  }
-}
-
-.telemetry-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.telemetry-label {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.telemetry-value {
-  font-family: var(--font-mono);
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-top: 2px;
-}
 
 /* Power Grid Schematic Diagram */
 .grid-schematic-card {
@@ -443,14 +398,6 @@
   margin-bottom: var(--space-2);
 }
 
-.slot-substation {
-  font-family: var(--font-mono);
-  font-size: var(--text-xs);
-  color: var(--text-tertiary);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-4);
-}
 
 .slot-description {
   font-size: var(--text-sm);

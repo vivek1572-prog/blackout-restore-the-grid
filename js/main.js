@@ -126,6 +126,11 @@ function renderLeaderboardTabs() {
     activeBtn.classList.add('is-active');
     activeBtn.setAttribute('tabindex', '0');
 
+    const panel = document.getElementById('panel-game');
+    if (panel) {
+      panel.setAttribute('aria-labelledby', activeBtn.id);
+    }
+
     if (panelTitle) {
       panelTitle.textContent = `CHANNEL ${game.slot} // ${game.name.toUpperCase()} LEADERBOARD`;
     }
