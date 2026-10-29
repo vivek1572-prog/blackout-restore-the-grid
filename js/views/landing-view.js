@@ -109,7 +109,7 @@ export function renderLandingView() {
           <h2 id="games-section-title" class="section-title">GAME PREVIEW</h2>
           <p class="section-subtitle">
             The platform will feature exactly five distinct games. 
-            Until game concepts and rules are finalized by the Sphinx committee, the temporary designations 
+            Until game concepts, mechanics, and rules are confirmed, the temporary designations 
             Game 01 through Game 05 are used.
           </p>
         </div>
@@ -177,7 +177,7 @@ export function renderLandingView() {
               <div>
                 <div id="lb-landing-title" class="lb-channel-id">CHANNEL 01 // GAME 01 LEADERBOARD</div>
                 <div id="lb-landing-desc" class="text-secondary font-mono text-xs">
-                  Dedicated ranking channel for Game 01. A single unified leaderboard tracks this game across all stages.
+                  Dedicated ranking channel for Game 01. Each game maintains a single dedicated leaderboard without stage-wise leaderboards.
                 </div>
               </div>
               <span class="status-indicator is-alert">
@@ -235,21 +235,21 @@ export function renderLandingView() {
             <span class="protocol-step-num">02</span>
             <h3 class="protocol-title">Choose a Game</h3>
             <p class="protocol-desc">
-              Select one of the five available games (Game 01 through Game 05) to initiate.
+              Select from the five planned game entries (Game 01 through Game 05).
             </p>
           </article>
           <article class="protocol-card">
             <span class="protocol-step-num">03</span>
             <h3 class="protocol-title">Play the Game</h3>
             <p class="protocol-desc">
-              Complete the challenges within the selected game. Games may include multiple stages.
+              Play the selected game. If a game includes multiple stages, no separate leaderboards will exist for individual stages.
             </p>
           </article>
           <article class="protocol-card">
             <span class="protocol-step-num">04</span>
             <h3 class="protocol-title">View Leaderboard</h3>
             <p class="protocol-desc">
-              Check your score on that game's dedicated leaderboard upon completion.
+              View standings on that game's dedicated leaderboard. Each game maintains its own separate leaderboard.
             </p>
           </article>
         </div>
@@ -329,7 +329,7 @@ export function initLandingInteractions() {
         const game = GAMES_CONFIG[index];
         if (panel) panel.setAttribute('aria-labelledby', tab.id);
         if (title) title.textContent = `CHANNEL ${game.slot} // ${game.name.toUpperCase()} LEADERBOARD`;
-        if (desc) desc.textContent = `Dedicated ranking channel for ${game.name}. A single unified leaderboard tracks this game across all stages.`;
+        if (desc) desc.textContent = `Dedicated ranking channel for ${game.name}. Each game maintains a single dedicated leaderboard without stage-wise leaderboards.`;
         if (fullBtn) fullBtn.setAttribute('href', `#/leaderboards/${game.id}`);
       });
     });

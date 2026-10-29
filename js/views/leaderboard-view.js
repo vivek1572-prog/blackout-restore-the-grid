@@ -23,7 +23,7 @@ export function renderLeaderboardsView(selectedGameId = 'game-01') {
           <h1 class="section-title">GAME LEADERBOARDS</h1>
           <p class="section-subtitle">
             Each game features its own separate, dedicated leaderboard. 
-            Scores reflect total game performance—there are no separate leaderboards for individual stages.
+            There are no separate leaderboards for individual stages or levels.
           </p>
         </div>
 
@@ -51,7 +51,7 @@ export function renderLeaderboardsView(selectedGameId = 'game-01') {
                 <div class="lb-channel-id">CHANNEL ${selectedGame.slot} // ${selectedGame.name.toUpperCase()} LEADERBOARD</div>
                 <div class="text-secondary font-mono text-xs" style="margin-top: 4px;">
                   Active Channel: ${selectedGame.name} &nbsp;|&nbsp; 
-                  Structure: Unified score across all stages
+                  Leaderboard: Dedicated (no stage-wise leaderboards)
                 </div>
               </div>
               <span class="status-indicator is-alert">
@@ -86,8 +86,7 @@ export function renderLeaderboardsView(selectedGameId = 'game-01') {
                 </svg>
                 <div>
                   <strong>CONFIRMED LEADERBOARD RULE:</strong> Exactly one leaderboard per game. 
-                  If ${escapeHtml(selectedGame.name)} contains multiple levels or stages, all stage attempts contribute 
-                  to this single unified leaderboard.
+                  There are no separate leaderboards for individual stages or levels.
                 </div>
               </aside>
 

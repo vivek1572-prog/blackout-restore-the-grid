@@ -53,7 +53,7 @@ function initGlobalDialog() {
     if (game) {
       if (dialogTitle) dialogTitle.textContent = `SLOT INSPECTION: ${game.name.toUpperCase()}`;
       if (dialogDesc) {
-        dialogDesc.textContent = `${game.name} specifications, mechanics, scoring systems, and stage designs are unconfirmed and currently under development for Sphinx at MNIT Jaipur.`;
+        dialogDesc.textContent = `${game.name} specifications, mechanics, scoring systems, and stage designs are unconfirmed.`;
       }
       dialog.showModal();
     }

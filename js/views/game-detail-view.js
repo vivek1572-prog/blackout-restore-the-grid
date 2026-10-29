@@ -72,9 +72,8 @@ export function renderGameDetailView(gameId) {
               Instructions &amp; Controls
             </h2>
             <p class="text-secondary" style="line-height: 1.7; font-size: var(--text-sm);">
-              Specific gameplay mechanics, keyboard/mouse controls, challenge rules, and victory conditions 
-              have not yet been decided by the Sphinx technical committee. Full instructions will be supplied 
-              when this game module is finalized.
+              Placeholder — Specific gameplay mechanics, controls, rules, and scoring conditions 
+              have not yet been confirmed. Full instructions will be provided when game specifications are finalized.
             </p>
           </div>
 

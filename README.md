@@ -17,7 +17,7 @@ Phase 2 extends the platform with the full set of explicitly authorized frontend
 | `#/games/:id` | **Game Details** | Reusable template displaying game name, placeholder briefing, leaderboard note, and a non-functional "Launch Game Shell" action with explicit disclaimer. |
 | `#/how-to-play` | **How to Play** | General information page presenting the confirmed 4-step participation flow and explicit notice that game-specific rules will follow. |
 | `#/register` | **Terminal Registration** | Form with **strictly three fields** (`Full Name`, `College ID`, `College Name`), required-field validation, and an honest demonstration state message (no database persistence). |
-| `#/leaderboards` | **Leaderboards Console** | Five dedicated game leaderboard channels (`Game 01` – `Game 05`), unified per-game score rule (no per-stage division), and an honest standby state without fabricated scores. |
+| `#/leaderboards` | **Leaderboards Console** | Five dedicated game leaderboard channels (`Game 01` – `Game 05`), dedicated leaderboard per game (no stage-wise leaderboards), and an honest standby state without fabricated scores. |
 | `#/play/:id` | **Gameplay Shell** | Reusable, non-functional gameplay layout shell identifying the selected game with a prominent `"SPECIFICATION IN PROGRESS"` banner. |
 | `#/results/:id` | **Results Layout** | Minimal reusable results framework displaying placeholder metrics (`--`) with explicit notice that genuine results will stream once games are deployed. |
 | `*` | **Not Found (404)** | Clean cyber-terminal 404 error view with a working return link to the command center. |

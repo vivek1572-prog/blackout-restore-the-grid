@@ -59,7 +59,7 @@ export function renderPlayShellView(gameId) {
                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
               </svg>
               <div>
-                <strong>STATUS:</strong> Game mechanics will be implemented in a future phase once confirmed by the Sphinx committee. 
+                <strong>STATUS:</strong> Game mechanics will be implemented in a future phase once specifications are confirmed. 
                 No controls are simulated.
               </div>
             </aside>

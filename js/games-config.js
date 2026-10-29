@@ -15,45 +15,45 @@ export const GAMES_CONFIG = [
     slot: "01",
     name: "Game 01",
     status: "Specification Pending",
-    description: "Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.",
+    description: "Placeholder — Game concept, rules, and technical mechanics are unconfirmed.",
     leaderboardInfo: "Dedicated Leaderboard (Game 01)",
-    structureInfo: "Unified score across all stages"
+    structureInfo: "No stage-wise leaderboards"
   },
   {
     id: "game-02",
     slot: "02",
     name: "Game 02",
     status: "Specification Pending",
-    description: "Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.",
+    description: "Placeholder — Game concept, rules, and technical mechanics are unconfirmed.",
     leaderboardInfo: "Dedicated Leaderboard (Game 02)",
-    structureInfo: "Unified score across all stages"
+    structureInfo: "No stage-wise leaderboards"
   },
   {
     id: "game-03",
     slot: "03",
     name: "Game 03",
     status: "Specification Pending",
-    description: "Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.",
+    description: "Placeholder — Game concept, rules, and technical mechanics are unconfirmed.",
     leaderboardInfo: "Dedicated Leaderboard (Game 03)",
-    structureInfo: "Unified score across all stages"
+    structureInfo: "No stage-wise leaderboards"
   },
   {
     id: "game-04",
     slot: "04",
     name: "Game 04",
     status: "Specification Pending",
-    description: "Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.",
+    description: "Placeholder — Game concept, rules, and technical mechanics are unconfirmed.",
     leaderboardInfo: "Dedicated Leaderboard (Game 04)",
-    structureInfo: "Unified score across all stages"
+    structureInfo: "No stage-wise leaderboards"
   },
   {
     id: "game-05",
     slot: "05",
     name: "Game 05",
     status: "Specification Pending",
-    description: "Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.",
+    description: "Placeholder — Game concept, rules, and technical mechanics are unconfirmed.",
     leaderboardInfo: "Dedicated Leaderboard (Game 05)",
-    structureInfo: "Unified score across all stages"
+    structureInfo: "No stage-wise leaderboards"
   }
 ];
 

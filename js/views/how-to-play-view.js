@@ -29,7 +29,7 @@ export function renderHowToPlayView() {
             <h2 class="protocol-title">Register Operator</h2>
             <p class="protocol-desc">
               Submit your identification details: Full Name, College ID, and College Name. 
-              These fields identify your score transmissions across all game leaderboards.
+              These three fields serve as operator identification.
             </p>
           </article>
 
@@ -37,8 +37,7 @@ export function renderHowToPlayView() {
             <span class="protocol-step-num">02</span>
             <h2 class="protocol-title">Select Mission Dock</h2>
             <p class="protocol-desc">
-              Choose from any of the five available games (Game 01 through Game 05) in the games directory. 
-              Each dock represents an independent technical operation.
+              Select from the five planned game entries (Game 01 through Game 05) in the games directory.
             </p>
           </article>
 
@@ -46,8 +45,8 @@ export function renderHowToPlayView() {
             <span class="protocol-step-num">03</span>
             <h2 class="protocol-title">Engage the Challenge</h2>
             <p class="protocol-desc">
-              Play the selected game. Games may eventually feature multiple levels or stages, 
-              working toward a single overall game completion score.
+              Play the selected game. If a game includes multiple levels or stages, 
+              no separate leaderboards will exist for individual stages.
             </p>
           </article>
 
@@ -55,7 +54,7 @@ export function renderHowToPlayView() {
             <span class="protocol-step-num">04</span>
             <h2 class="protocol-title">View Standings</h2>
             <p class="protocol-desc">
-              Upon finishing, review your standing on that game's dedicated leaderboard. 
+              Review your standing on that game's dedicated leaderboard. 
               Each of the five games maintains its own separate ranking.
             </p>
           </article>
@@ -72,8 +71,8 @@ export function renderHowToPlayView() {
               NOTICE ON GAME-SPECIFIC RULES:
             </strong>
             Detailed game instructions, controls, challenge mechanisms, scoring systems, timers, penalties, 
-            and stage rules are currently undecided and will be supplied after each game is finalized by the 
-            Sphinx committee. No unconfirmed rules are assumed.
+            and stage rules are unconfirmed and will be provided once game specifications are established. 
+            No unconfirmed rules are assumed.
           </div>
         </aside>
 

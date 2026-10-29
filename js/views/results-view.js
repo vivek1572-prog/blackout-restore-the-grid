@@ -41,7 +41,7 @@ export function renderResultsView(gameId) {
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
             <div>
-              <strong>HONEST STATUS NOTICE:</strong> No genuine gameplay results, scores, completion times, or ranks 
+              <strong>HONEST STATUS NOTICE:</strong> No genuine gameplay results, scores, or ranks 
               are displayed because actual gameplay has not yet been implemented. Real telemetry will populate 
               here once the game modules are deployed for Sphinx at MNIT Jaipur.
             </div>
