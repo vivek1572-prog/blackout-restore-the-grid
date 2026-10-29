@@ -1,25 +1,142 @@
 /**
  * BLACKOUT: RESTORE THE GRID
- * Main Application Logic & Accessible Navigation
+ * Main Frontend Logic & Dynamic Card Rendering
  * Sphinx @ MNIT Jaipur
  */
 
-import { TelemetryMonitor } from './telemetry.js';
+import { GAMES_CONFIG } from './games-config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize HUD telemetry
-  TelemetryMonitor.init();
-
-  // Initialize navigation & interactions
+  renderGameCards();
+  renderLeaderboardTabs();
   initMobileNavigation();
   initSmoothScrollAndActiveNav();
-  initLeaderboardTabs();
   initSlotInspectorModal();
   initSchematicInteractivity();
 });
 
 /**
- * 1. Mobile Drawer Navigation
+ * 1. Centralized Game Card Rendering
+ * Renders exactly five game cards dynamically from GAMES_CONFIG.
+ */
+function renderGameCards() {
+  const container = document.getElementById('games-container');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  GAMES_CONFIG.forEach((game, index) => {
+    const card = document.createElement('article');
+    card.className = 'game-slot-card';
+    card.setAttribute('data-slot', (index + 1).toString());
+    card.setAttribute('aria-labelledby', `slot-title-${game.id}`);
+
+    card.innerHTML = `
+      <div class="slot-meta-bar">
+        <span class="slot-index">SLOT // ${game.slot}</span>
+        <span class="status-indicator is-alert">
+          <span class="status-dot" aria-hidden="true"></span>
+          ${escapeHtml(game.status)}
+        </span>
+      </div>
+      <h3 id="slot-title-${game.id}" class="slot-title">${escapeHtml(game.name)}</h3>
+      <p class="slot-description">
+        ${escapeHtml(game.description)}
+      </p>
+      <ul class="slot-specs-list" aria-label="${escapeHtml(game.name)} confirmed properties">
+        <li class="slot-specs-row">
+          <span>Leaderboard:</span> 
+          <span class="slot-specs-val">${escapeHtml(game.leaderboardInfo)}</span>
+        </li>
+        <li class="slot-specs-row">
+          <span>Level Structure:</span> 
+          <span class="slot-specs-val">${escapeHtml(game.structureInfo)}</span>
+        </li>
+      </ul>
+      <div class="hud-card-footer">
+        <button class="btn btn-secondary" type="button" data-inspect-slot="${game.id}">
+          Inspect Slot
+        </button>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/**
+ * 2. Centralized Leaderboard Channel Tabs
+ * Renders the 5 game channel tabs from GAMES_CONFIG.
+ */
+function renderLeaderboardTabs() {
+  const tablist = document.getElementById('leaderboard-tablist');
+  const panelTitle = document.getElementById('lb-channel-title');
+  const panelDesc = document.getElementById('lb-channel-desc');
+  if (!tablist) return;
+
+  tablist.innerHTML = '';
+
+  GAMES_CONFIG.forEach((game, index) => {
+    const btn = document.createElement('button');
+    btn.className = `lb-tab-btn ${index === 0 ? 'is-active' : ''}`;
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('id', `tab-${game.id}`);
+    btn.setAttribute('aria-controls', 'panel-game');
+    btn.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+    btn.setAttribute('tabindex', index === 0 ? '0' : '-1');
+    btn.textContent = `CHANNEL ${game.slot} // ${game.name.toUpperCase()}`;
+
+    btn.addEventListener('click', () => {
+      activateLeaderboardTab(btn, game);
+    });
+
+    btn.addEventListener('keydown', (e) => {
+      const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
+      let nextIndex = index;
+
+      if (e.key === 'ArrowRight') {
+        nextIndex = (index + 1) % tabs.length;
+      } else if (e.key === 'ArrowLeft') {
+        nextIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (e.key === 'Home') {
+        nextIndex = 0;
+      } else if (e.key === 'End') {
+        nextIndex = tabs.length - 1;
+      } else {
+        return;
+      }
+
+      e.preventDefault();
+      tabs[nextIndex].focus();
+      activateLeaderboardTab(tabs[nextIndex], GAMES_CONFIG[nextIndex]);
+    });
+
+    tablist.appendChild(btn);
+  });
+
+  function activateLeaderboardTab(activeBtn, game) {
+    const allTabs = tablist.querySelectorAll('[role="tab"]');
+    allTabs.forEach(t => {
+      t.setAttribute('aria-selected', 'false');
+      t.classList.remove('is-active');
+      t.setAttribute('tabindex', '-1');
+    });
+
+    activeBtn.setAttribute('aria-selected', 'true');
+    activeBtn.classList.add('is-active');
+    activeBtn.setAttribute('tabindex', '0');
+
+    if (panelTitle) {
+      panelTitle.textContent = `CHANNEL ${game.slot} // ${game.name.toUpperCase()} LEADERBOARD`;
+    }
+    if (panelDesc) {
+      panelDesc.textContent = `Dedicated ranking channel for ${game.name}. A single unified leaderboard tracks this game across all stages.`;
+    }
+  }
+}
+
+/**
+ * 3. Mobile Navigation Drawer
  */
 function initMobileNavigation() {
   const toggleBtn = document.getElementById('mobile-menu-toggle');
@@ -32,7 +149,6 @@ function initMobileNavigation() {
     drawer.classList.toggle('is-open', !isExpanded);
   });
 
-  // Close drawer when clicking any link inside it
   drawer.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', () => {
       toggleBtn.setAttribute('aria-expanded', 'false');
@@ -42,7 +158,7 @@ function initMobileNavigation() {
 }
 
 /**
- * 2. Active Section Spy via IntersectionObserver
+ * 4. Active Navigation via IntersectionObserver
  */
 function initSmoothScrollAndActiveNav() {
   const sections = document.querySelectorAll('section[id]');
@@ -73,97 +189,35 @@ function initSmoothScrollAndActiveNav() {
 }
 
 /**
- * 3. Leaderboard Tabs (WCAG 2.2 Accessible Tablist)
- */
-function initLeaderboardTabs() {
-  const tablist = document.querySelector('[role="tablist"]');
-  if (!tablist) return;
-
-  const tabs = tablist.querySelectorAll('[role="tab"]');
-  const channelTitle = document.getElementById('lb-channel-title');
-  const channelSubstation = document.getElementById('lb-channel-substation');
-
-  const substationNames = [
-    'Substation Alpha (High-Voltage Core)',
-    'Substation Beta (Frequency Stabilizer)',
-    'Substation Gamma (Transformer Array)',
-    'Substation Delta (Cyber Telemetry Relay)',
-    'Substation Epsilon (Distribution Matrix)'
-  ];
-
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => {
-      activateTab(tab, index);
-    });
-
-    // Keyboard navigation (Left, Right, Home, End)
-    tab.addEventListener('keydown', (e) => {
-      let nextIndex = index;
-      if (e.key === 'ArrowRight') {
-        nextIndex = (index + 1) % tabs.length;
-      } else if (e.key === 'ArrowLeft') {
-        nextIndex = (index - 1 + tabs.length) % tabs.length;
-      } else if (e.key === 'Home') {
-        nextIndex = 0;
-      } else if (e.key === 'End') {
-        nextIndex = tabs.length - 1;
-      } else {
-        return;
-      }
-      e.preventDefault();
-      tabs[nextIndex].focus();
-      activateTab(tabs[nextIndex], nextIndex);
-    });
-  });
-
-  function activateTab(activeTab, idx) {
-    tabs.forEach(t => {
-      t.setAttribute('aria-selected', 'false');
-      t.classList.remove('is-active');
-      t.setAttribute('tabindex', '-1');
-    });
-
-    activeTab.setAttribute('aria-selected', 'true');
-    activeTab.classList.add('is-active');
-    activeTab.setAttribute('tabindex', '0');
-
-    const slotNum = idx + 1;
-    if (channelTitle) {
-      channelTitle.textContent = `CHANNEL 0${slotNum} // GAME 0${slotNum} TELEMETRY`;
-    }
-    if (channelSubstation) {
-      channelSubstation.textContent = substationNames[idx] || `Substation 0${slotNum}`;
-    }
-  }
-}
-
-/**
- * 4. Game Slot Inspector Modal
+ * 5. Accessible Slot Inspector Modal
  */
 function initSlotInspectorModal() {
   const dialog = document.getElementById('slot-inspector-dialog');
   const closeBtn = document.getElementById('dialog-close-btn');
-  const modalDismissBtn = document.getElementById('dialog-dismiss-btn');
-  const inspectButtons = document.querySelectorAll('[data-inspect-slot]');
+  const dismissBtn = document.getElementById('dialog-dismiss-btn');
   const dialogTitle = document.getElementById('dialog-slot-title');
-  const dialogSubstation = document.getElementById('dialog-substation-name');
+  const dialogDesc = document.getElementById('dialog-slot-desc');
 
   if (!dialog) return;
 
   let lastFocusedElement = null;
 
-  inspectButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      lastFocusedElement = btn;
-      const slotId = btn.getAttribute('data-inspect-slot');
-      const slotName = btn.getAttribute('data-slot-name') || `Game ${slotId}`;
-      const substationName = btn.getAttribute('data-substation') || `Substation ${slotId}`;
+  // Use event delegation for dynamically rendered cards
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-inspect-slot]');
+    if (!trigger) return;
 
-      if (dialogTitle) dialogTitle.textContent = `DOCK INSPECTION: ${slotName.toUpperCase()}`;
-      if (dialogSubstation) dialogSubstation.textContent = substationName;
+    lastFocusedElement = trigger;
+    const gameId = trigger.getAttribute('data-inspect-slot');
+    const game = GAMES_CONFIG.find(g => g.id === gameId);
 
+    if (game) {
+      if (dialogTitle) dialogTitle.textContent = `SLOT INSPECTION: ${game.name.toUpperCase()}`;
+      if (dialogDesc) {
+        dialogDesc.textContent = `${game.name} specifications, mechanics, scoring systems, and stage designs are unconfirmed and currently under development for Sphinx at MNIT Jaipur.`;
+      }
       dialog.showModal();
-    });
+    }
   });
 
   const closeModal = () => {
@@ -174,9 +228,8 @@ function initSlotInspectorModal() {
   };
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (modalDismissBtn) modalDismissBtn.addEventListener('click', closeModal);
+  if (dismissBtn) dismissBtn.addEventListener('click', closeModal);
 
-  // Close when clicking dialog backdrop
   dialog.addEventListener('click', (e) => {
     const rect = dialog.getBoundingClientRect();
     const isInDialog = (
@@ -192,32 +245,32 @@ function initSlotInspectorModal() {
 }
 
 /**
- * 5. Interactive SVG Circuit Nodes
+ * 6. Interactive Power Grid SVG Schematic
  */
 function initSchematicInteractivity() {
-  const nodes = document.querySelectorAll('.grid-node-substation');
-  const readout = document.getElementById('schematic-active-node-readout');
+  const nodes = document.querySelectorAll('.grid-node-slot');
+  const readout = document.getElementById('schematic-status-readout');
 
   nodes.forEach(node => {
-    const slot = node.getAttribute('data-slot-target');
-    const label = node.getAttribute('data-node-label');
+    const slotNumber = node.getAttribute('data-slot-target');
+    const label = `GAME 0${slotNumber}`;
 
     node.addEventListener('mouseenter', () => {
       if (readout) {
-        readout.textContent = `HOVERING: ${label} [OFFLINE]`;
+        readout.textContent = `NODE 0${slotNumber}: ${label} [STANDBY]`;
         readout.classList.add('text-amber');
       }
     });
 
     node.addEventListener('mouseleave', () => {
       if (readout) {
-        readout.textContent = 'SYSTEM DIAGNOSTIC: 05 NODES DESYNCHRONIZED';
+        readout.textContent = 'POWER GRID SCHEMATIC // 05 DISCONNECTED NODES';
         readout.classList.remove('text-amber');
       }
     });
 
     node.addEventListener('click', () => {
-      const targetCard = document.querySelector(`.game-slot-card[data-slot="${slot}"]`);
+      const targetCard = document.querySelector(`.game-slot-card[data-slot="${slotNumber}"]`);
       if (targetCard) {
         targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
         targetCard.style.outline = '2px solid var(--cyan-primary)';
@@ -227,4 +280,14 @@ function initSchematicInteractivity() {
       }
     });
   });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }

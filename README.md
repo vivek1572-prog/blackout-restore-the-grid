@@ -4,25 +4,30 @@
 
 ---
 
-## Phase 1 Milestone: Design System & Landing Page
+## Phase 1 Milestone: Design System, Centralized Architecture & Landing Page
 
-This milestone establishes the foundational design system tokens, responsive control-room visual architecture, and a fully functional, self-contained landing page.
+This milestone establishes the foundational design system tokens, responsive control-room visual architecture, centralized game configuration, and a self-contained landing page adhering strictly to confirmed requirements.
 
 ### Key Features Implemented
 
-1. **Self-Contained Design System (`css/tokens.css`, `css/base.css`, `css/components.css`)**:
-   - **Color Palette:** Deep black void (`#050608`), charcoal surfaces (`#0a0d14`, `#111622`), electric cyan primary accents (`#00f0ff`), restrained status green (`#00e676`), warning amber (`#ffb300`), and alert crimson (`#ff2a55`).
-   - **Contrast & Accessibility:** Fully compliant with WCAG 2.2 AA contrast standards.
-   - **Zero External Dependencies:** Built with native HTML5, modern CSS custom properties, and standard ES modules. No Google Fonts, CDN scripts, or external graphics required.
-   - **Hardware-Accelerated UI:** High-performance CSS transforms and linear gradient masks instead of heavy multi-pass blur filters.
+1. **Centralized Game Configuration (`js/games-config.js`)**:
+   - Single structured source of truth for the five temporary game entries (`Game 01` through `Game 05`).
+   - The five game preview cards in `#games` and the channel tabs in `#leaderboards` are dynamically rendered from this shared configuration rather than duplicated in markup.
+   - Future game names, descriptions, and settings can be modified in this single file without touching the layout HTML or shared components.
 
-2. **Landing Page Architecture (`index.html`, `css/landing.css`, `js/main.js`, `js/telemetry.js`)**:
-   - **A. Navigation:** Sticky command bar with system clock, network telemetry (`LINK: ONLINE / STANDALONE`), audio toggle placeholder, in-page navigation, and a responsive mobile drawer menu.
-   - **B. Hero Section:** Headline **"THE GRID IS DOWN. RESTORE THE GRID."** with mission narrative, primary/secondary action triggers, capacity telemetry, and an interactive inline SVG power grid schematic with 5 disconnected substations.
-   - **C. Game Preview Section:** Exactly five temporary slots (`Game 01` through `Game 05`) styled with distinct visual touches (Substations Alpha through Epsilon) while maintaining design cohesion. Includes an accessible slot inspection modal (`<dialog>`).
-   - **D. Leaderboard Section:** Standalone leaderboard architecture explaining that each game has its own leaderboard with no per-level fragmentation. Interactive tablist switching channels across Game 01 – Game 05 with truthful standby states.
-   - **E. How to Play:** 4-step mission briefing (Intake, Selection, Execution, Sync) with explicit disclaimers regarding unconfirmed rules and scoring mechanics.
-   - **F. Footer:** Sphinx @ MNIT Jaipur identification with editable event placeholders.
+2. **Self-Contained Design System (`css/tokens.css`, `css/base.css`, `css/components.css`)**:
+   - **Color Palette:** Deep black void (`#050608`), charcoal surfaces (`#0a0d14`, `#111622`), electric cyan primary accents (`#00f0ff`), restrained status green (`#00e676`), and alert amber (`#ffb300`).
+   - **Contrast & Accessibility:** Full WCAG 2.2 AA contrast compliance.
+   - **Zero External Dependencies:** Native HTML5, modern CSS custom properties, and standard ES modules. No Google Fonts, CDN scripts, or external graphics required.
+   - **Performance-Conscious UI:** Hardware-accelerated CSS transforms and gradient masks instead of heavy multi-pass blur filters.
+
+3. **Landing Page Architecture (`index.html`, `css/landing.css`, `js/main.js`)**:
+   - **A. Navigation:** Sticky command bar with Blackout branding, Sphinx @ MNIT Jaipur attribution, navigation links to implemented sections, and a responsive mobile drawer menu.
+   - **B. Hero Section:** Confirmed headline **"THE GRID IS DOWN. RESTORE THE GRID."** with platform narrative, primary/secondary action triggers, and an inline SVG schematic of a disrupted power grid with 5 disconnected game nodes.
+   - **C. Game Preview:** Exactly five cards (`Game 01` through `Game 05`) rendered dynamically from `js/games-config.js`, with explicit placeholder indicators. No invented mechanics or fake difficulty ratings. Includes an accessible slot inspection modal (`<dialog>`).
+   - **D. Leaderboards Entry:** Standalone leaderboard architecture explaining that each game has its own dedicated leaderboard with no per-level fragmentation. Interactive tablist switching channels across Game 01 – Game 05 with truthful standby states.
+   - **E. How to Play:** 4-step mission flow (Register, Choose a Game, Play, View Leaderboard) with explicit disclaimers regarding unconfirmed rules and scoring mechanics.
+   - **F. Footer:** Project name and Sphinx at MNIT Jaipur identification with truthful in-page navigation links.
 
 ---
 
@@ -43,8 +48,10 @@ npx serve -l 8000 .
 
 ---
 
-## Verification & Quality Checklist
+## Verification Checklist
 
+- [x] **No Unapproved Additions:** Removed all unapproved extras (unrequested live clock, audio buttons, invented statistics, and fake substation names).
+- [x] **Centralized Configuration:** The five game entries are stored in `js/games-config.js` and rendered dynamically.
 - [x] **No Unimplemented Routes:** All navigation links scroll smoothly to real, implemented sections (`#overview`, `#games`, `#leaderboards`, `#how-to-play`).
 - [x] **Truthful States:** No simulated fake scores, fabricated backend calls, or invented game mechanics.
 - [x] **Responsive Layout:** Tested across desktop widescreen, tablet, and mobile (no horizontal overflow).

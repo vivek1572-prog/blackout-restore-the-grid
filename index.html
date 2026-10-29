@@ -23,7 +23,7 @@
 
   <div class="site-wrapper">
     <!-- ====================================================================
-         A. HUD NAVIGATION COMMAND BAR
+         1. NAVIGATION
          ==================================================================== -->
     <header class="hud-header" role="banner">
       <div class="container hud-header-inner">
@@ -35,40 +35,25 @@
             </svg>
           </div>
           <div class="brand-text">
-            <span class="brand-title">BLACKOUT</span>
-            <span class="brand-sub">RESTORE THE GRID // SPHINX MNIT</span>
+            <span class="brand-title">BLACKOUT: RESTORE THE GRID</span>
+            <span class="brand-sub">SPHINX @ MNIT JAIPUR</span>
           </div>
         </a>
 
-        <!-- Desktop Navigation Links -->
+        <!-- Desktop Navigation Links to Existing Sections -->
         <nav class="desktop-nav" role="navigation" aria-label="Primary navigation">
           <a href="#overview" class="nav-link active">Overview</a>
-          <a href="#games" class="nav-link">Game Docks</a>
+          <a href="#games" class="nav-link">Explore Games</a>
           <a href="#leaderboards" class="nav-link">Leaderboards</a>
           <a href="#how-to-play" class="nav-link">How to Play</a>
         </nav>
 
-        <!-- Status Telemetry & Actions -->
+        <!-- Direct Actions & Mobile Toggle -->
         <div class="header-actions">
-          <!-- Real-Time Network Link Status -->
-          <div id="network-status-indicator" class="status-indicator is-active" title="Network Link Telemetry">
-            <span class="status-dot" aria-hidden="true"></span>
-            <span id="network-status-text">LINK: ONLINE</span>
-          </div>
-
-          <!-- System Clock -->
-          <span id="hud-system-clock" class="telemetry-tag" aria-label="System Time">00:00:00 SYS</span>
-
-          <!-- Audio Placeholder Toggle -->
-          <button id="audio-toggle-btn" class="btn btn-ghost" type="button" aria-pressed="false" aria-label="Toggle terminal audio effects">
-            <span class="audio-label">AUDIO: OFF</span>
-          </button>
-
-          <!-- Primary Direct Entry -->
-          <a href="#games" class="btn btn-primary">Launch Protocol</a>
+          <a href="#games" class="btn btn-primary">Explore Games</a>
 
           <!-- Mobile Hamburger Toggle -->
-          <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open mobile navigation">
+          <button id="mobile-menu-toggle" class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open navigation menu">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -82,7 +67,7 @@
       <div id="mobile-drawer" class="mobile-drawer" role="region" aria-label="Mobile Navigation Drawer">
         <ul class="mobile-nav-list">
           <li><a href="#overview" class="mobile-nav-link">Overview</a></li>
-          <li><a href="#games" class="mobile-nav-link">Game Docks (05 Slots)</a></li>
+          <li><a href="#games" class="mobile-nav-link">Explore Games</a></li>
           <li><a href="#leaderboards" class="mobile-nav-link">Leaderboards</a></li>
           <li><a href="#how-to-play" class="mobile-nav-link">How to Play</a></li>
         </ul>
@@ -92,20 +77,16 @@
 
     <main id="main-content" role="main">
       <!-- ====================================================================
-           B. HERO SECTION (THE GRID IS DOWN)
+           2. HERO SECTION
            ==================================================================== -->
       <section id="overview" class="hero-section" aria-labelledby="hero-main-title">
         <div class="container">
           <div class="hero-grid">
             <!-- Left Hero Narrative -->
             <div class="hero-content">
-              <div class="hero-status-tag">
-                <span class="status-indicator is-alert">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  STATE: CATASTROPHIC BLACKOUT
-                </span>
-                <span class="telemetry-tag">PRIORITY: ALPHA</span>
-              </div>
+              <span class="section-eyebrow">
+                SPHINX @ MNIT JAIPUR
+              </span>
 
               <h1 id="hero-main-title" class="hero-headline">
                 THE GRID IS DOWN.
@@ -113,9 +94,9 @@
               </h1>
 
               <p class="hero-lead">
-                Critical power substations across the sector have suffered cascading desynchronization. 
-                Engineered for Sphinx at MNIT Jaipur, five distinct technical operations will deploy to stabilize the 
-                distribution matrix and bring the core online.
+                Welcome to Blackout: Restore the Grid, a cyberpunk game platform designed for Sphinx at MNIT Jaipur. 
+                The platform will feature a future collection of five distinct games, where participants will 
+                compete to bring power back to the grid.
               </p>
 
               <div class="hero-actions">
@@ -130,81 +111,60 @@
                   How to Play
                 </a>
               </div>
-
-              <!-- Hero Telemetry Meter -->
-              <div class="hero-telemetry-bar">
-                <div class="telemetry-item">
-                  <span class="telemetry-label">Grid Capacity</span>
-                  <span class="telemetry-value text-amber">12% CRITICAL</span>
-                </div>
-                <div class="telemetry-item">
-                  <span class="telemetry-label">Active Docks</span>
-                  <span class="telemetry-value text-cyan">05 DETECTED</span>
-                </div>
-                <div class="telemetry-item">
-                  <span class="telemetry-label">Mission Host</span>
-                  <span class="telemetry-value text-green">SPHINX @ MNIT</span>
-                </div>
-              </div>
             </div>
 
-            <!-- Right Hero Visual: Disrupted Power Grid Vector Schematic -->
+            <!-- Right Hero Visual: Disrupted Power Grid Schematic -->
             <div class="hero-visual">
-              <div class="grid-schematic-card" aria-label="Tactical Power Grid Schematic">
+              <div class="grid-schematic-card" aria-label="Power Grid Schematic Visual">
                 <div class="schematic-header">
-                  <span>TELEMETRY SCHEMATIC // SECTOR 04</span>
-                  <span id="schematic-active-node-readout" class="font-mono text-xs">SYSTEM DIAGNOSTIC: 05 NODES DESYNCHRONIZED</span>
+                  <span>DISRUPTED POWER GRID SCHEMATIC</span>
+                  <span id="schematic-status-readout" class="font-mono text-xs">POWER GRID SCHEMATIC // 05 DISCONNECTED NODES</span>
                 </div>
 
                 <div class="schematic-svg-container">
-                  <svg class="schematic-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interactive circuit diagram of the power grid with central hub and 5 substation nodes">
-                    <!-- Circuit Grid Background Grid Lines -->
+                  <svg class="schematic-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Circuit diagram representing the central grid and five disconnected game nodes">
+                    <!-- Concentric Grid Lines -->
                     <circle cx="200" cy="200" r="140" stroke="rgba(0, 240, 255, 0.1)" stroke-width="1" stroke-dasharray="2 4" />
                     <circle cx="200" cy="200" r="80" stroke="rgba(0, 240, 255, 0.15)" stroke-width="1" />
 
-                    <!-- Transmission Lines between Hub and Substations -->
-                    <!-- Line to Substation 01 (Top) -->
+                    <!-- Transmission Lines between Central Grid and Game Nodes -->
                     <line x1="200" y1="160" x2="200" y2="70" class="grid-circuit-line" />
-                    <!-- Line to Substation 02 (Top Right) -->
                     <line x1="230" y1="180" x2="310" y2="120" class="grid-circuit-alert" />
-                    <!-- Line to Substation 03 (Bottom Right) -->
                     <line x1="225" y1="225" x2="290" y2="290" class="grid-circuit-line" />
-                    <!-- Line to Substation 04 (Bottom Left) -->
                     <line x1="175" y1="225" x2="110" y2="290" class="grid-circuit-alert" />
-                    <!-- Line to Substation 05 (Top Left) -->
                     <line x1="170" y1="180" x2="90" y2="120" class="grid-circuit-line" />
 
-                    <!-- Central Power Hub -->
+                    <!-- Central Grid Hub -->
                     <circle cx="200" cy="200" r="32" class="grid-node-hub" />
                     <circle cx="200" cy="200" r="16" fill="var(--cyan-dim)" stroke="var(--cyan-primary)" stroke-width="1.5" />
-                    <text x="200" y="204" class="grid-node-label" fill="var(--cyan-primary)" font-weight="700">CORE</text>
+                    <text x="200" y="204" class="grid-node-label" fill="var(--cyan-primary)" font-weight="700">GRID</text>
 
-                    <!-- Substation Node 01 (Top) -->
-                    <g class="grid-node-substation" data-slot-target="1" data-node-label="SUBSTATION 01 (ALPHA)">
+                    <!-- Node 01 -->
+                    <g class="grid-node-substation grid-node-slot" data-slot-target="1" aria-label="Game 01 Node">
                       <circle cx="200" cy="60" r="22" />
                       <text x="200" y="64" class="grid-node-label">01</text>
                     </g>
 
-                    <!-- Substation Node 02 (Top Right) -->
-                    <g class="grid-node-substation" data-slot-target="2" data-node-label="SUBSTATION 02 (BETA)">
+                    <!-- Node 02 -->
+                    <g class="grid-node-substation grid-node-slot" data-slot-target="2" aria-label="Game 02 Node">
                       <circle cx="320" cy="110" r="22" />
                       <text x="320" y="114" class="grid-node-label">02</text>
                     </g>
 
-                    <!-- Substation Node 03 (Bottom Right) -->
-                    <g class="grid-node-substation" data-slot-target="3" data-node-label="SUBSTATION 03 (GAMMA)">
+                    <!-- Node 03 -->
+                    <g class="grid-node-substation grid-node-slot" data-slot-target="3" aria-label="Game 03 Node">
                       <circle cx="300" cy="300" r="22" />
                       <text x="300" y="304" class="grid-node-label">03</text>
                     </g>
 
-                    <!-- Substation Node 04 (Bottom Left) -->
-                    <g class="grid-node-substation" data-slot-target="4" data-node-label="SUBSTATION 04 (DELTA)">
+                    <!-- Node 04 -->
+                    <g class="grid-node-substation grid-node-slot" data-slot-target="4" aria-label="Game 04 Node">
                       <circle cx="100" cy="300" r="22" />
                       <text x="100" y="304" class="grid-node-label">04</text>
                     </g>
 
-                    <!-- Substation Node 05 (Top Left) -->
-                    <g class="grid-node-substation" data-slot-target="5" data-node-label="SUBSTATION 05 (EPSILON)">
+                    <!-- Node 05 -->
+                    <g class="grid-node-substation grid-node-slot" data-slot-target="5" aria-label="Game 05 Node">
                       <circle cx="80" cy="110" r="22" />
                       <text x="80" y="114" class="grid-node-label">05</text>
                     </g>
@@ -212,9 +172,9 @@
                 </div>
 
                 <div class="schematic-legend">
-                  <span>● CORE: STANDBY</span>
-                  <span class="text-amber">● SUBSTATIONS: DISCONNECTED</span>
-                  <span>CLICK NODE TO JUMP</span>
+                  <span>● CENTRAL GRID</span>
+                  <span class="text-amber">● 05 GAME NODES</span>
+                  <span>SELECT NODE TO VIEW</span>
                 </div>
               </div>
             </div>
@@ -223,217 +183,90 @@
       </section>
 
       <!-- ====================================================================
-           C. GAME PREVIEW SECTION (EXACTLY 5 TEMPORARY SLOTS)
+           3. GAME PREVIEW (CENTRALIZED CONFIGURATION DRIVEN)
            ==================================================================== -->
       <section id="games" class="section" aria-labelledby="games-section-title">
         <div class="container">
           <div class="section-header">
             <span class="section-eyebrow">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                <line x1="6" y1="18" x2="6.01" y2="18"></line>
-              </svg>
-              SYSTEM SUBSYSTEMS // 05 SLOTS
+              FUTURE GAME COLLECTION
             </span>
-            <h2 id="games-section-title" class="section-title">MISSION DOCKS</h2>
+            <h2 id="games-section-title" class="section-title">GAME PREVIEW</h2>
             <p class="section-subtitle">
-              Five dedicated tactical terminals represent the sector's offline substations. 
-              Each dock will host an independent technical game once parameters are finalized by the Sphinx committee.
+              The platform will feature exactly five distinct games. 
+              Until game concepts and rules are finalized by the Sphinx committee, the temporary designations 
+              Game 01 through Game 05 are used.
             </p>
           </div>
 
-          <div class="games-grid">
-            <!-- Slot 01: Game 01 -->
-            <article class="game-slot-card" data-slot="1" aria-labelledby="slot-1-title">
-              <div class="slot-meta-bar">
-                <span class="slot-index">DOCK // 01</span>
-                <span class="status-indicator is-alert">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  STANDBY
-                </span>
-              </div>
-              <h3 id="slot-1-title" class="slot-title">GAME 01</h3>
-              <span class="slot-substation">SUBSTATION ALPHA // CORE VOLTAGE</span>
-              <p class="slot-description">
-                Placeholder dock for Mission 01. Challenge concept, level specifications, and scoring parameters 
-                are currently under active definition by event organizers.
-              </p>
-              <ul class="slot-specs-list" aria-label="Game 01 specifications">
-                <li class="slot-specs-row"><span>Status:</span> <span class="slot-specs-val text-amber">Specification Pending</span></li>
-                <li class="slot-specs-row"><span>Leaderboard:</span> <span class="slot-specs-val">Dedicated (Game 01)</span></li>
-                <li class="slot-specs-row"><span>Stage Structure:</span> <span class="slot-specs-val">Multi-Stage Ready</span></li>
-              </ul>
-              <div class="hud-card-footer">
-                <button class="btn btn-secondary" type="button" data-inspect-slot="1" data-slot-name="Game 01" data-substation="Substation Alpha // Core Voltage">
-                  Inspect Dock
-                </button>
-              </div>
-            </article>
-
-            <!-- Slot 02: Game 02 -->
-            <article class="game-slot-card" data-slot="2" aria-labelledby="slot-2-title">
-              <div class="slot-meta-bar">
-                <span class="slot-index">DOCK // 02</span>
-                <span class="status-indicator is-alert">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  STANDBY
-                </span>
-              </div>
-              <h3 id="slot-2-title" class="slot-title">GAME 02</h3>
-              <span class="slot-substation">SUBSTATION BETA // FREQUENCY STABILIZER</span>
-              <p class="slot-description">
-                Placeholder dock for Mission 02. Technical mechanics and rules remain intentionally unassigned 
-                until confirmed for Sphinx.
-              </p>
-              <ul class="slot-specs-list" aria-label="Game 02 specifications">
-                <li class="slot-specs-row"><span>Status:</span> <span class="slot-specs-val text-amber">Specification Pending</span></li>
-                <li class="slot-specs-row"><span>Leaderboard:</span> <span class="slot-specs-val">Dedicated (Game 02)</span></li>
-                <li class="slot-specs-row"><span>Stage Structure:</span> <span class="slot-specs-val">Multi-Stage Ready</span></li>
-              </ul>
-              <div class="hud-card-footer">
-                <button class="btn btn-secondary" type="button" data-inspect-slot="2" data-slot-name="Game 02" data-substation="Substation Beta // Frequency Stabilizer">
-                  Inspect Dock
-                </button>
-              </div>
-            </article>
-
-            <!-- Slot 03: Game 03 -->
-            <article class="game-slot-card" data-slot="3" aria-labelledby="slot-3-title">
-              <div class="slot-meta-bar">
-                <span class="slot-index">DOCK // 03</span>
-                <span class="status-indicator is-alert">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  STANDBY
-                </span>
-              </div>
-              <h3 id="slot-3-title" class="slot-title">GAME 03</h3>
-              <span class="slot-substation">SUBSTATION GAMMA // TRANSFORMER MATRIX</span>
-              <p class="slot-description">
-                Placeholder dock for Mission 03. Architecture designed for plug-and-play game logic integration 
-                without altering core shell navigation.
-              </p>
-              <ul class="slot-specs-list" aria-label="Game 03 specifications">
-                <li class="slot-specs-row"><span>Status:</span> <span class="slot-specs-val text-amber">Specification Pending</span></li>
-                <li class="slot-specs-row"><span>Leaderboard:</span> <span class="slot-specs-val">Dedicated (Game 03)</span></li>
-                <li class="slot-specs-row"><span>Stage Structure:</span> <span class="slot-specs-val">Multi-Stage Ready</span></li>
-              </ul>
-              <div class="hud-card-footer">
-                <button class="btn btn-secondary" type="button" data-inspect-slot="3" data-slot-name="Game 03" data-substation="Substation Gamma // Transformer Matrix">
-                  Inspect Dock
-                </button>
-              </div>
-            </article>
-
-            <!-- Slot 04: Game 04 -->
-            <article class="game-slot-card" data-slot="4" aria-labelledby="slot-4-title">
-              <div class="slot-meta-bar">
-                <span class="slot-index">DOCK // 04</span>
-                <span class="status-indicator is-alert">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  STANDBY
-                </span>
-              </div>
-              <h3 id="slot-4-title" class="slot-title">GAME 04</h3>
-              <span class="slot-substation">SUBSTATION DELTA // TELEMETRY RELAY</span>
-              <p class="slot-description">
-                Placeholder dock for Mission 04. Dedicated scoring stream and session interfaces prepared for future 
-                event deployment.
-              </p>
-              <ul class="slot-specs-list" aria-label="Game 04 specifications">
-                <li class="slot-specs-row"><span>Status:</span> <span class="slot-specs-val text-amber">Specification Pending</span></li>
-                <li class="slot-specs-row"><span>Leaderboard:</span> <span class="slot-specs-val">Dedicated (Game 04)</span></li>
-                <li class="slot-specs-row"><span>Stage Structure:</span> <span class="slot-specs-val">Multi-Stage Ready</span></li>
-              </ul>
-              <div class="hud-card-footer">
-                <button class="btn btn-secondary" type="button" data-inspect-slot="4" data-slot-name="Game 04" data-substation="Substation Delta // Telemetry Relay">
-                  Inspect Dock
-                </button>
-              </div>
-            </article>
-
-            <!-- Slot 05: Game 05 -->
-            <article class="game-slot-card" data-slot="5" aria-labelledby="slot-5-title">
-              <div class="slot-meta-bar">
-                <span class="slot-index">DOCK // 05</span>
-                <span class="status-indicator is-alert">
-                  <span class="status-dot" aria-hidden="true"></span>
-                  STANDBY
-                </span>
-              </div>
-              <h3 id="slot-5-title" class="slot-title">GAME 05</h3>
-              <span class="slot-substation">SUBSTATION EPSILON // DISTRIBUTION NODE</span>
-              <p class="slot-description">
-                Placeholder dock for Mission 05. The final substation terminal awaiting official challenge guidelines 
-                prior to phase release.
-              </p>
-              <ul class="slot-specs-list" aria-label="Game 05 specifications">
-                <li class="slot-specs-row"><span>Status:</span> <span class="slot-specs-val text-amber">Specification Pending</span></li>
-                <li class="slot-specs-row"><span>Leaderboard:</span> <span class="slot-specs-val">Dedicated (Game 05)</span></li>
-                <li class="slot-specs-row"><span>Stage Structure:</span> <span class="slot-specs-val">Multi-Stage Ready</span></li>
-              </ul>
-              <div class="hud-card-footer">
-                <button class="btn btn-secondary" type="button" data-inspect-slot="5" data-slot-name="Game 05" data-substation="Substation Epsilon // Distribution Node">
-                  Inspect Dock
-                </button>
-              </div>
-            </article>
+          <!-- Centralized Dynamic Container rendered from GAMES_CONFIG -->
+          <div id="games-container" class="games-grid">
+            <!-- Rendered dynamically by js/main.js from js/games-config.js -->
+            <noscript>
+              <article class="game-slot-card" data-slot="1">
+                <div class="slot-meta-bar"><span class="slot-index">SLOT // 01</span></div>
+                <h3 class="slot-title">Game 01</h3>
+                <p class="slot-description">Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.</p>
+              </article>
+              <article class="game-slot-card" data-slot="2">
+                <div class="slot-meta-bar"><span class="slot-index">SLOT // 02</span></div>
+                <h3 class="slot-title">Game 02</h3>
+                <p class="slot-description">Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.</p>
+              </article>
+              <article class="game-slot-card" data-slot="3">
+                <div class="slot-meta-bar"><span class="slot-index">SLOT // 03</span></div>
+                <h3 class="slot-title">Game 03</h3>
+                <p class="slot-description">Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.</p>
+              </article>
+              <article class="game-slot-card" data-slot="4">
+                <div class="slot-meta-bar"><span class="slot-index">SLOT // 04</span></div>
+                <h3 class="slot-title">Game 04</h3>
+                <p class="slot-description">Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.</p>
+              </article>
+              <article class="game-slot-card" data-slot="5">
+                <div class="slot-meta-bar"><span class="slot-index">SLOT // 05</span></div>
+                <h3 class="slot-title">Game 05</h3>
+                <p class="slot-description">Placeholder — Concept, rules, and technical mechanics are currently being developed by the Sphinx committee.</p>
+              </article>
+            </noscript>
           </div>
         </div>
       </section>
 
       <!-- ====================================================================
-           D. LEADERBOARD ENTRY SECTION
+           4. LEADERBOARD ENTRY SECTION
            ==================================================================== -->
       <section id="leaderboards" class="section" aria-labelledby="leaderboards-title">
         <div class="container">
           <div class="section-header">
             <span class="section-eyebrow">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="18" y1="20" x2="18" y2="10"></line>
-                <line x1="12" y1="20" x2="12" y2="4"></line>
-                <line x1="6" y1="20" x2="6" y2="14"></line>
-              </svg>
-              CENTRAL TELEMETRY // RANKINGS
+              COMPETITION STRUCTURE
             </span>
-            <h2 id="leaderboards-title" class="section-title">STANDALONE LEADERBOARDS</h2>
+            <h2 id="leaderboards-title" class="section-title">GAME LEADERBOARDS</h2>
             <p class="section-subtitle">
-              Transparency by design: each of the five games features its own distinct leaderboard. 
-              Scores reflect overall game performance—no fragmented per-level leaderboards exist.
+              Each game will have its own dedicated leaderboard. 
+              Multiple levels or stages may exist within a game, but there will be no separate leaderboard for each level.
             </p>
           </div>
 
           <div class="leaderboard-console">
-            <!-- Channel Switcher Tablist -->
-            <div class="lb-tabs" role="tablist" aria-label="Leaderboard game channels">
-              <button class="lb-tab-btn is-active" role="tab" aria-selected="true" id="tab-game-1" aria-controls="panel-game" tabindex="0">
-                CHANNEL 01 // GAME 01
-              </button>
-              <button class="lb-tab-btn" role="tab" aria-selected="false" id="tab-game-2" aria-controls="panel-game" tabindex="-1">
-                CHANNEL 02 // GAME 02
-              </button>
-              <button class="lb-tab-btn" role="tab" aria-selected="false" id="tab-game-3" aria-controls="panel-game" tabindex="-1">
-                CHANNEL 03 // GAME 03
-              </button>
-              <button class="lb-tab-btn" role="tab" aria-selected="false" id="tab-game-4" aria-controls="panel-game" tabindex="-1">
-                CHANNEL 04 // GAME 04
-              </button>
-              <button class="lb-tab-btn" role="tab" aria-selected="false" id="tab-game-5" aria-controls="panel-game" tabindex="-1">
-                CHANNEL 05 // GAME 05
-              </button>
+            <!-- Channel Switcher Tablist (Driven from GAMES_CONFIG) -->
+            <div id="leaderboard-tablist" class="lb-tabs" role="tablist" aria-label="Leaderboard game channels">
+              <!-- Rendered dynamically by js/main.js -->
             </div>
 
-            <!-- Single Responsive Tabpanel with Truthful State -->
-            <div id="panel-game" class="lb-display-panel" role="tabpanel" aria-labelledby="tab-game-1">
+            <!-- Display Panel Explaining Confirmed Leaderboard Rules -->
+            <div id="panel-game" class="lb-display-panel" role="tabpanel" aria-labelledby="tab-game-01">
               <div class="lb-panel-header">
                 <div>
-                  <div id="lb-channel-title" class="lb-channel-id">CHANNEL 01 // GAME 01 TELEMETRY</div>
-                  <div id="lb-channel-substation" class="text-secondary font-mono text-xs">Substation Alpha (High-Voltage Core)</div>
+                  <div id="lb-channel-title" class="lb-channel-id">CHANNEL 01 // GAME 01 LEADERBOARD</div>
+                  <div id="lb-channel-desc" class="text-secondary font-mono text-xs">
+                    Dedicated ranking channel for Game 01. A single unified leaderboard tracks this game across all stages.
+                  </div>
                 </div>
                 <span class="status-indicator is-alert">
                   <span class="status-dot" aria-hidden="true"></span>
-                  STANDBY: PRE-EVENT
+                  STANDBY
                 </span>
               </div>
 
@@ -445,13 +278,13 @@
                     <line x1="12" y1="17" x2="12" y2="21"></line>
                   </svg>
                 </div>
-                <h3 class="lb-standby-title">CHANNEL AWAITING EVENT DISPATCH</h3>
+                <h3 class="lb-standby-title">LEADERBOARD ACTIVATION PENDING</h3>
                 <p class="lb-standby-text">
-                  Official ranking tables will stream live when participants engage challenges at Sphinx. 
-                  In accordance with event standards, no simulated or fabricated scores are rendered.
+                  Leaderboards will activate when games launch during Sphinx at MNIT Jaipur. 
+                  In accordance with event requirements, no fabricated scores, fake participant names, or simulated rankings are shown.
                 </p>
                 <div class="telemetry-tag">
-                  PROTOCOL: 01 LEADERBOARD PER GAME // NO PER-STAGE PARTITIONING
+                  RULE: 01 LEADERBOARD PER GAME // NO PER-LEVEL LEADERBOARDS
                 </div>
               </div>
             </div>
@@ -460,55 +293,50 @@
       </section>
 
       <!-- ====================================================================
-           E. HOW-TO-PLAY PREVIEW SECTION
+           5. HOW-TO-PLAY PREVIEW SECTION
            ==================================================================== -->
       <section id="how-to-play" class="section" aria-labelledby="how-to-play-title">
         <div class="container">
           <div class="section-header">
             <span class="section-eyebrow">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="16" x2="12" y2="12"></line>
-                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-              </svg>
-              MISSION BRIEFING // HOW TO PLAY
+              GENERAL PARTICIPATION FLOW
             </span>
-            <h2 id="how-to-play-title" class="section-title">OPERATION PROTOCOL</h2>
+            <h2 id="how-to-play-title" class="section-title">HOW TO PLAY</h2>
             <p class="section-subtitle">
-              Review the general engagement flow for participants at Sphinx (MNIT Jaipur).
+              Review the confirmed four-step flow for participating in Blackout: Restore the Grid.
             </p>
           </div>
 
           <div class="protocol-steps">
             <article class="protocol-card">
               <span class="protocol-step-num">01</span>
-              <h3 class="protocol-title">Terminal Intake</h3>
+              <h3 class="protocol-title">Register</h3>
               <p class="protocol-desc">
-                Register as an active grid operator using your Full Name, College ID, and College Name.
+                Register with your Full Name, College ID, and College Name to begin.
               </p>
             </article>
 
             <article class="protocol-card">
               <span class="protocol-step-num">02</span>
-              <h3 class="protocol-title">Substation Selection</h3>
+              <h3 class="protocol-title">Choose a Game</h3>
               <p class="protocol-desc">
-                Select from any of the five available mission docks (Game 01 through Game 05) to initiate challenge.
+                Select one of the five available games (Game 01 through Game 05) to initiate.
               </p>
             </article>
 
             <article class="protocol-card">
               <span class="protocol-step-num">03</span>
-              <h3 class="protocol-title">Mission Execution</h3>
+              <h3 class="protocol-title">Play the Game</h3>
               <p class="protocol-desc">
-                Solve technical puzzles across one or more stages to stabilize power distribution.
+                Complete the challenges within the selected game. Games may include multiple stages.
               </p>
             </article>
 
             <article class="protocol-card">
               <span class="protocol-step-num">04</span>
-              <h3 class="protocol-title">Telemetry Sync</h3>
+              <h3 class="protocol-title">View Leaderboard</h3>
               <p class="protocol-desc">
-                Upon challenge completion, final scores broadcast directly to that game's official leaderboard.
+                Check your score on that game's dedicated leaderboard upon completion.
               </p>
             </article>
           </div>
@@ -520,8 +348,8 @@
               <line x1="12" y1="17" x2="12.01" y2="17"></line>
             </svg>
             <div>
-              <strong>TECHNICAL NOTICE:</strong> Specific timing rules, scoring algorithms, penalties, and stage 
-              progression mechanics are intentionally unconfirmed and will be published once each game specification is finalized.
+              <strong>NOTICE:</strong> Registration and gameplay are not active in this phase. 
+              Game-specific rules, scoring systems, and stage mechanics will be provided when the games are finalized.
             </div>
           </aside>
         </div>
@@ -529,7 +357,7 @@
     </main>
 
     <!-- ====================================================================
-         F. FOOTER (SPHINX @ MNIT JAIPUR IDENTIFICATION)
+         6. FOOTER
          ==================================================================== -->
     <footer class="hud-footer" role="contentinfo">
       <div class="container">
@@ -537,33 +365,26 @@
           <div class="footer-brand">
             <div class="footer-brand-title">BLACKOUT: RESTORE THE GRID</div>
             <p class="footer-affiliation">
-              Engineered for <strong>Sphinx</strong>, the annual technical festival of 
-              <strong>Malaviya National Institute of Technology (MNIT), Jaipur</strong>.
+              Engineered for <strong>Sphinx</strong> at <strong>Malaviya National Institute of Technology (MNIT), Jaipur</strong>.
             </p>
-            <div class="footer-placeholders">
-              <span>● EVENT DATES: [ ANNOUNCEMENT BY SPHINX COMMITTEE ]</span>
-              <span>● VENUE: [ MNIT JAIPUR CAMPUS ]</span>
-              <span>● OPERATIONAL MODE: ONLINE NETWORKED &amp; STANDALONE CAPABLE</span>
-            </div>
           </div>
 
           <div class="footer-col">
             <div class="footer-col-title">Navigation</div>
             <ul class="footer-nav-list">
-              <li><a href="#overview" class="footer-nav-link">System Overview</a></li>
-              <li><a href="#games" class="footer-nav-link">Mission Docks (5 Games)</a></li>
-              <li><a href="#leaderboards" class="footer-nav-link">Live Leaderboards</a></li>
-              <li><a href="#how-to-play" class="footer-nav-link">Operation Protocol</a></li>
+              <li><a href="#overview" class="footer-nav-link">Overview</a></li>
+              <li><a href="#games" class="footer-nav-link">Explore Games</a></li>
+              <li><a href="#leaderboards" class="footer-nav-link">Leaderboards</a></li>
+              <li><a href="#how-to-play" class="footer-nav-link">How to Play</a></li>
             </ul>
           </div>
 
           <div class="footer-col">
-            <div class="footer-col-title">System Specs</div>
+            <div class="footer-col-title">Milestone</div>
             <ul class="footer-nav-list">
-              <li class="footer-nav-link" style="cursor: default;">Milestone: Phase 1</li>
-              <li class="footer-nav-link" style="cursor: default;">Zero External CDNs</li>
-              <li class="footer-nav-link" style="cursor: default;">WCAG 2.2 AA Contrast</li>
-              <li class="footer-nav-link" style="cursor: default;">Laptop &amp; Mobile Ready</li>
+              <li class="footer-nav-link" style="cursor: default;">Phase 1: Landing Page</li>
+              <li class="footer-nav-link" style="cursor: default;">Centralized Config</li>
+              <li class="footer-nav-link" style="cursor: default;">Local Assets Only</li>
             </ul>
           </div>
         </div>
@@ -577,7 +398,7 @@
   </div>
 
   <!-- ====================================================================
-       ACCESSIBLE MODAL: GAME SLOT DOCK INSPECTION
+       ACCESSIBLE MODAL: SLOT INSPECTOR DIALOG
        ==================================================================== -->
   <dialog id="slot-inspector-dialog" class="terminal-dialog" aria-labelledby="dialog-slot-title">
     <div class="terminal-dialog-header">
@@ -587,21 +408,17 @@
           <line x1="12" y1="16" x2="12" y2="12"></line>
           <line x1="12" y1="8" x2="12.01" y2="8"></line>
         </svg>
-        DOCK INSPECTION
+        SLOT INSPECTION
       </div>
       <button id="dialog-close-btn" class="terminal-dialog-close" type="button" aria-label="Close dialog">✕</button>
     </div>
     <div class="terminal-dialog-content">
-      <p id="dialog-substation-name" class="font-mono text-cyan text-sm" style="margin-bottom: var(--space-3);">
-        Substation Dock
-      </p>
-      <p class="text-secondary" style="margin-bottom: var(--space-4); line-height: 1.6;">
-        This mission terminal is locked in standby status. Challenge specifications, scoring systems, 
-        and gameplay rules have not yet been assigned by the Sphinx technical committee.
+      <p id="dialog-slot-desc" class="text-secondary" style="margin-bottom: var(--space-4); line-height: 1.6;">
+        Game specifications, mechanics, scoring systems, and stage designs are unconfirmed and currently under development for Sphinx at MNIT Jaipur.
       </p>
       <div class="status-indicator is-alert" style="width: 100%; justify-content: center; padding: var(--space-3);">
         <span class="status-dot" aria-hidden="true"></span>
-        STATUS: AWAITING PHASE 2 SPECIFICATIONS
+        STATUS: SPECIFICATION PENDING
       </div>
     </div>
     <div class="terminal-dialog-footer">
