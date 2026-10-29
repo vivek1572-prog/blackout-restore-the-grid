@@ -6,10 +6,12 @@
 
 import { initRouter } from './router.js';
 import { GAMES_CONFIG } from './games-config.js';
+import { initTerminalAudio } from './audio.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   initMobileNavigation();
   initGlobalDialog();
+  initTerminalAudio();
   initRouter();
 });
 

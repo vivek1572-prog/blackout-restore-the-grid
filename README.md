@@ -59,5 +59,6 @@ Direct page refreshes (e.g. `http://localhost:8000/#/register`) work natively vi
 - [x] **Registration Scoped Strictly:** Only `Full Name`, `College ID`, and `College Name`. No unapproved fields.
 - [x] **Truthful States:** The registration form clearly communicates demonstration state without implying permanent data storage; leaderboards show honest standby states without fabricated ranks.
 - [x] **Complete Routing Coverage:** All 9 authorized routes tested and verified.
+- [x] **Optional Terminal Sound Effects:** Web Audio API synthesized micro-clicks with footer toggle, OFF by default, and localStorage client preference persistence.
 - [x] **Responsive Layout:** Desktop, tablet, and mobile layouts verified with zero horizontal overflow.
 - [x] **Accessibility:** High-contrast visible focus rings, WCAG 2.2 AA contrast compliance, ARIA tablist/tabpanel, keyboard navigation, and reduced-motion support.
