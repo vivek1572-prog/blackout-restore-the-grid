@@ -8,11 +8,23 @@
  * In production, the backend URL can be configured via window.__BLACKOUT_API_URL__.
  */
 
+function resolveBaseUrl() {
+  if (typeof window !== 'undefined' && window.__BLACKOUT_API_URL__) {
+    return window.__BLACKOUT_API_URL__;
+  }
+  if (typeof window !== 'undefined' && window.location) {
+    const hostname = window.location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://localhost:8000/api/v1';
+    }
+  }
+  // Production default pointing to live Render backend
+  return 'https://blackout-api-0ibm.onrender.com/api/v1';
+}
+
 export const API_CONFIG = {
-  baseUrl: (typeof window !== 'undefined' && window.__BLACKOUT_API_URL__)
-    ? window.__BLACKOUT_API_URL__
-    : 'http://localhost:8000/api/v1',
-  timeoutMs: 8000,
+  baseUrl: resolveBaseUrl(),
+  timeoutMs: 15000,
 };
 
 /**
