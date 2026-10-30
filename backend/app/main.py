@@ -1,15 +1,20 @@
 """
 BLACKOUT: RESTORE THE GRID
-FastAPI Application Entry Point & Foundation (Phase 3B.3)
+FastAPI Application Entry Point & Foundation (Phase 3B)
 Sphinx @ MNIT Jaipur
 """
 
 from app.config import get_settings
 
 try:
-    from fastapi import FastAPI, Depends, Response
+    from fastapi import FastAPI, Depends, Request, Response, status
     from fastapi.middleware.cors import CORSMiddleware
+    from fastapi.responses import JSONResponse
     from sqlalchemy.orm import Session
+    from slowapi.errors import RateLimitExceeded
+    from slowapi.middleware import SlowAPIMiddleware
+
+    from app.core.limiter import limiter
     from app.database import get_db
     HAS_FASTAPI = True
 except ImportError:
@@ -30,6 +35,25 @@ def create_app() -> "FastAPI":
         docs_url="/docs" if settings.environment != "production" else None,
         redoc_url="/redoc" if settings.environment != "production" else None,
     )
+
+    # Attach in-memory rate limiter state
+    application.state.limiter = limiter
+    application.add_middleware(SlowAPIMiddleware)
+
+    # Standardized HTTP 429 JSON exception handler
+    @application.exception_handler(RateLimitExceeded)
+    def rate_limit_exceeded_handler(request: Request, exc: RateLimitExceeded):
+        """Standardized JSON error envelope for HTTP 429 Too Many Requests."""
+        return JSONResponse(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            content={
+                "error": {
+                    "code": "RATE_LIMIT_EXCEEDED",
+                    "message": f"Rate limit exceeded: {exc.detail}. Please wait before submitting again.",
+                }
+            },
+            headers={"Retry-After": "60"},
+        )
 
     # Configure CORS (Development origins configured; production Vercel URL pending confirmation)
     application.add_middleware(

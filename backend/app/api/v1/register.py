@@ -1,12 +1,14 @@
 """
 BLACKOUT: RESTORE THE GRID
-Participant Registration API Controller (Phase 3B.2)
+Participant Registration API Controller (Phase 3B)
 Sphinx @ MNIT Jaipur
 """
 
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends, Request, Response, status
 from sqlalchemy.orm import Session
 
+from app.config import get_settings
+from app.core.limiter import limiter
 from app.database import get_db
 from app.schemas.participant import (
     ParticipantCreate,
@@ -16,6 +18,7 @@ from app.schemas.participant import (
 from app.services.participant_service import upsert_participant
 
 router = APIRouter(prefix="/register", tags=["Registration"])
+settings = get_settings()
 
 
 @router.post(
@@ -26,21 +29,26 @@ router = APIRouter(prefix="/register", tags=["Registration"])
     description=(
         "Registers a participant using strictly the three confirmed fields: Full Name, College ID, and College Name. "
         "If a record with the same College ID already exists, it updates that record (HTTP 200 OK) "
-        "rather than creating a duplicate. New registrations return HTTP 201 Created."
+        "rather than creating a duplicate. New registrations return HTTP 201 Created. "
+        "Protected by 120 requests/minute/IP rate limit."
     ),
     responses={
         201: {"description": "New participant registered successfully."},
         200: {"description": "Existing participant record updated successfully."},
         422: {"description": "Validation error (missing field, invalid length, or unexpected extra fields)."},
+        429: {"description": "Too many requests. Rate limit of 120 requests/minute exceeded."},
     },
 )
+@limiter.limit(settings.rate_limit_register)
 def register_operator(
+    request: Request,
     payload: ParticipantCreate,
     response: Response,
     db: Session = Depends(get_db),
 ) -> RegistrationResponse:
     """
     Intake handler for participant registration.
+    Rate-limited per client IP (120 requests/minute).
     """
     participant, is_created = upsert_participant(db, payload)
 

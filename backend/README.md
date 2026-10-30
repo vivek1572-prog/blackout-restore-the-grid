@@ -41,6 +41,9 @@ backend/
 │   │   ├── __init__.py
 │   │   ├── base.py                   # Declarative base
 │   │   └── participant.py            # Participant model (strictly 3 intake fields)
+│   ├── core/                         # Core infrastructure
+│   │   ├── __init__.py
+│   │   └── limiter.py                # SlowAPI rate limiter & proxy resolver
 │   ├── schemas/                      # Pydantic v2 schemas
 │   │   ├── __init__.py
 │   │   ├── common.py                 # Error envelopes
@@ -51,12 +54,14 @@ backend/
 │       ├── __init__.py
 │       ├── leaderboard_service.py    # Game channel registry & standby state
 │       └── participant_service.py    # Atomic registration upsert logic
-├── tests/                            # Automated test suite (25 tests)
+├── tests/                            # Automated test suite (34 tests)
 │   ├── __init__.py
 │   ├── conftest.py                   # In-memory SQLite fixtures & TestClient
+│   ├── test_e2e_frontend_integration.py # E2E client payload simulation
 │   ├── test_foundation.py            # Model metadata, AST, & config tests
 │   ├── test_health.py                # Health & DB probe tests
 │   ├── test_leaderboard.py           # 5-channel leaderboard & 404 tests
+│   ├── test_rate_limiter.py          # 120 req/min/IP rate limiter tests
 │   └── test_registration.py          # Atomic upsert, normalization, & validation tests
 ├── .env.example                      # Sample environment variables
 ├── .gitignore                        # Python & secret ignore rules
@@ -81,6 +86,7 @@ backend/
 - Duplicate College ID submissions update the existing participant record rather than creating a duplicate row.
 - New registration returns `HTTP 201 Created` (`action: "created"`).
 - Existing registration update returns `HTTP 200 OK` (`action: "updated"`).
+- **Abuse Protection:** Rate-limited to 120 requests/minute per client IP via SlowAPI. Exceeding requests receive `HTTP 429 Too Many Requests` with a standardized JSON error envelope and `Retry-After: 60`. Campus Wi-Fi NAT traffic is accommodated with high burst allowances.
 
 ### 3. Game Channel Leaderboard (`GET /api/v1/games/{game_id}/leaderboard`)
 - Strictly dedicated leaderboards for the five confirmed game slots (`game-01` through `game-05`).
@@ -100,9 +106,14 @@ source venv/bin/activate
 pip install -r requirements-dev.txt
 ```
 
-### 2. Running the API Locally
+### 2. Running the API
+**Development (Local):**
 ```bash
 uvicorn app.main:app --reload --port 8000
+```
+**Production (Render with Proxy Headers):**
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'
 ```
 Interactive API documentation:
 - Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
@@ -112,4 +123,4 @@ Interactive API documentation:
 ```bash
 pytest backend/tests -v
 ```
-All 25 automated unit and integration tests run in under 0.2 seconds against isolated in-memory test databases.
+All 34 automated unit, AST, rate-limiting, and integration tests run in under 0.7 seconds against isolated in-memory test databases.

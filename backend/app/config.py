@@ -32,6 +32,8 @@ if HAS_PYDANTIC:
         # Application Metadata
         app_name: str = "Blackout: Restore the Grid API"
         api_v1_prefix: str = "/api/v1"
+        # Rate Limiting Configuration
+        rate_limit_register: str = "120/minute"
 
         # CORS Allowed Origins (Development origins; overridden via CORS_ORIGINS env var)
         cors_origins: Union[List[str], str] = [
@@ -78,6 +80,7 @@ else:
             self.environment = os.getenv("ENVIRONMENT", "development")
             self.app_name = os.getenv("APP_NAME", "Blackout: Restore the Grid API")
             self.api_v1_prefix = os.getenv("API_V1_PREFIX", "/api/v1")
+            self.rate_limit_register = os.getenv("RATE_LIMIT_REGISTER", "120/minute")
             raw_cors = os.getenv(
                 "CORS_ORIGINS",
                 "http://localhost:8000,http://127.0.0.1:8000,http://localhost:3000,http://127.0.0.1:3000,http://localhost:5500,http://127.0.0.1:5500,http://localhost:8080,http://127.0.0.1:8080"
