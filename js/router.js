@@ -9,7 +9,7 @@ import { renderGamesDirectoryView } from './views/games-view.js';
 import { renderGameDetailView } from './views/game-detail-view.js';
 import { renderHowToPlayView } from './views/how-to-play-view.js';
 import { renderRegisterView, initRegisterInteractions } from './views/register-view.js';
-import { renderLeaderboardsView } from './views/leaderboard-view.js';
+import { renderLeaderboardsView, initLeaderboardsInteractions } from './views/leaderboard-view.js';
 import { renderPlayShellView } from './views/play-shell-view.js';
 import { renderResultsView } from './views/results-view.js';
 import { renderNotFoundView } from './views/not-found-view.js';
@@ -68,6 +68,7 @@ export function handleRoute() {
 
   if (hash === 'leaderboards') {
     root.innerHTML = renderLeaderboardsView('game-01');
+    initLeaderboardsInteractions('game-01');
     return;
   }
 
@@ -75,6 +76,7 @@ export function handleRoute() {
   if (leaderboardMatch) {
     const gameId = leaderboardMatch[1];
     root.innerHTML = renderLeaderboardsView(gameId);
+    initLeaderboardsInteractions(gameId);
     return;
   }
 

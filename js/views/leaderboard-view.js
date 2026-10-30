@@ -5,6 +5,7 @@
  */
 
 import { GAMES_CONFIG, getGameById } from '../games-config.js';
+import { getApiUrl } from '../config.js';
 
 export function renderLeaderboardsView(selectedGameId = 'game-01') {
   const selectedGame = getGameById(selectedGameId) || GAMES_CONFIG[0];
@@ -54,13 +55,13 @@ export function renderLeaderboardsView(selectedGameId = 'game-01') {
                   Leaderboard: Dedicated (no stage-wise leaderboards)
                 </div>
               </div>
-              <span class="status-indicator is-alert">
+              <span id="lb-telemetry-indicator" class="status-indicator is-alert">
                 <span class="status-dot" aria-hidden="true"></span>
                 STANDBY: PRE-EVENT
               </span>
             </div>
 
-            <div class="lb-standby-state">
+            <div id="lb-content-area" class="lb-standby-state">
               <div class="lb-standby-icon" aria-hidden="true">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -104,6 +105,75 @@ export function renderLeaderboardsView(selectedGameId = 'game-01') {
       </div>
     </div>
   `;
+}
+
+export function initLeaderboardsInteractions(selectedGameId = 'game-01') {
+  const selectedGame = getGameById(selectedGameId) || GAMES_CONFIG[0];
+  const telemetryIndicator = document.getElementById('lb-telemetry-indicator');
+  const contentArea = document.getElementById('lb-content-area');
+
+  if (!telemetryIndicator || !contentArea) return;
+
+  // Query live telemetry from backend
+  fetch(getApiUrl(`/games/${selectedGame.id}/leaderboard`))
+    .then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`Server returned HTTP ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      if (data && data.success) {
+        if (data.status === 'standby' && (!data.standings || data.standings.length === 0)) {
+          telemetryIndicator.className = 'status-indicator is-alert';
+          telemetryIndicator.innerHTML = `
+            <span class="status-dot" aria-hidden="true"></span>
+            STANDBY: PRE-EVENT
+          `;
+        } else if (data.standings && data.standings.length > 0) {
+          telemetryIndicator.className = 'status-indicator is-live';
+          telemetryIndicator.innerHTML = `
+            <span class="status-dot" aria-hidden="true"></span>
+            LIVE TELEMETRY
+          `;
+          // Render standings table if data is present
+          contentArea.innerHTML = `
+            <table class="leaderboard-table" style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr>
+                  <th style="text-align: left; padding: 12px;">Rank</th>
+                  <th style="text-align: left; padding: 12px;">Operator</th>
+                  <th style="text-align: left; padding: 12px;">College ID</th>
+                  <th style="text-align: left; padding: 12px;">Institution</th>
+                  <th style="text-align: right; padding: 12px;">Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${data.standings.map(s => `
+                  <tr>
+                    <td style="padding: 12px;">#${s.rank}</td>
+                    <td style="padding: 12px;">${escapeHtml(s.fullName)}</td>
+                    <td style="padding: 12px;">${escapeHtml(s.collegeId)}</td>
+                    <td style="padding: 12px;">${escapeHtml(s.collegeName)}</td>
+                    <td style="padding: 12px; text-align: right;">${s.score !== null ? s.score : 'Pending'}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      }
+    })
+    .catch(() => {
+      // Graceful offline fallback
+      if (telemetryIndicator) {
+        telemetryIndicator.className = 'status-indicator';
+        telemetryIndicator.innerHTML = `
+          <span class="status-dot" aria-hidden="true"></span>
+          OFFLINE CACHE
+        `;
+      }
+    });
 }
 
 function escapeHtml(str) {

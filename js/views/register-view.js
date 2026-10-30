@@ -4,6 +4,8 @@
  * Sphinx @ MNIT Jaipur
  */
 
+import { getApiUrl } from '../config.js';
+
 export function renderRegisterView() {
   return `
     <div class="section">
@@ -81,7 +83,7 @@ export function renderRegisterView() {
               <span class="form-hint">Full name of your institution or university campus.</span>
             </div>
 
-            <!-- Explicit Limitation Notice -->
+            <!-- Live Intake Policy Notice -->
             <aside class="protocol-disclaimer-box" role="note" style="margin-top: var(--space-6);">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber" aria-hidden="true" style="flex-shrink: 0;">
                 <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
@@ -89,9 +91,8 @@ export function renderRegisterView() {
                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
               </svg>
               <div>
-                <strong>DEMONSTRATION STATE:</strong> In accordance with Phase 2 scope, backend database 
-                persistence and permanent account creation are not implemented. Submitting this form tests 
-                input validation only; data is not stored.
+                <strong>LIVE INTAKE PROTOCOL:</strong> Registration credentials are processed directly by the Blackout API. 
+                If your College ID is already registered, your details will be updated atomically without duplicate creation.
               </div>
             </aside>
 
@@ -101,7 +102,7 @@ export function renderRegisterView() {
             <!-- Form Actions -->
             <div class="form-actions">
               <button type="submit" class="btn btn-primary" id="btn-submit-registration">
-                Validate Registration (Demonstration)
+                Register Operator
               </button>
               <button type="button" class="btn btn-secondary" id="btn-reset-registration">
                 Clear Form
@@ -117,6 +118,7 @@ export function renderRegisterView() {
 export function initRegisterInteractions() {
   const form = document.getElementById('registration-form');
   const feedbackBox = document.getElementById('form-feedback-box');
+  const submitBtn = document.getElementById('btn-submit-registration');
   const resetBtn = document.getElementById('btn-reset-registration');
 
   if (!form) return;
@@ -139,7 +141,7 @@ export function initRegisterInteractions() {
     }
   };
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearErrors();
 
@@ -172,20 +174,89 @@ export function initRegisterInteractions() {
       return;
     }
 
-    // Success in demonstration mode — explicitly communicate that no data is permanently saved
-    if (feedbackBox) {
-      feedbackBox.className = 'form-feedback is-visible is-success';
-      feedbackBox.innerHTML = `
-        <strong>✓ FORM VALIDATION SUCCESSFUL (DEMONSTRATION STATE)</strong><br>
-        Operator: <em>${escapeHtml(fullName)}</em> &nbsp;|&nbsp; 
-        ID: <em>${escapeHtml(collegeId)}</em> &nbsp;|&nbsp; 
-        Institution: <em>${escapeHtml(collegeName)}</em><br><br>
-        <span style="color: var(--text-secondary);">
-          <strong>Notice:</strong> As defined for Phase 2, backend database persistence is not active. 
-          Your information has not been permanently stored to a server. Permanent registration will be enabled 
-          when the backend is connected.
-        </span>
-      `;
+    // Lock submit button during API transmission
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Transmitting Credentials...';
+    }
+
+    try {
+      const response = await fetch(getApiUrl('/register'), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName,
+          collegeId,
+          collegeName,
+        }),
+      });
+
+      const data = await response.json().catch(() => null);
+
+      if (response.status === 201 && data && data.operator) {
+        // HTTP 201 Created — New Operator Registered
+        const op = data.operator;
+        if (feedbackBox) {
+          feedbackBox.className = 'form-feedback is-visible is-success';
+          feedbackBox.innerHTML = `
+            <strong>✓ OPERATOR REGISTERED SUCCESSFULLY (HTTP 201)</strong><br>
+            Operator: <em>${escapeHtml(op.fullName)}</em> &nbsp;|&nbsp; 
+            College ID: <em>${escapeHtml(op.collegeId)}</em> &nbsp;|&nbsp; 
+            Institution: <em>${escapeHtml(op.collegeName)}</em><br><br>
+            <span style="color: var(--text-secondary);">
+              Registration recorded in the central database. System access initialized for Sphinx @ MNIT Jaipur.
+            </span>
+          `;
+        }
+      } else if (response.status === 200 && data && data.operator) {
+        // HTTP 200 OK — Duplicate College ID Updated
+        const op = data.operator;
+        if (feedbackBox) {
+          feedbackBox.className = 'form-feedback is-visible is-success';
+          feedbackBox.innerHTML = `
+            <strong>✓ OPERATOR RECORD SYNCHRONIZED (HTTP 200)</strong><br>
+            Existing registration for College ID <em>${escapeHtml(op.collegeId)}</em> was updated.<br>
+            Operator: <em>${escapeHtml(op.fullName)}</em> &nbsp;|&nbsp; 
+            Institution: <em>${escapeHtml(op.collegeName)}</em><br><br>
+            <span style="color: var(--text-secondary);">
+              In accordance with duplicate registration rules, existing details were updated atomically without duplicate row generation.
+            </span>
+          `;
+        }
+      } else if (response.status === 422) {
+        // Validation Error from Backend
+        const detailMsg = (data && data.detail && Array.isArray(data.detail))
+          ? data.detail.map(d => d.msg || 'Invalid input').join(', ')
+          : 'Server rejected the submission due to validation failure.';
+        if (feedbackBox) {
+          feedbackBox.className = 'form-feedback is-visible is-error';
+          feedbackBox.textContent = `Server Validation Error (HTTP 422): ${detailMsg}`;
+        }
+      } else {
+        const errorMsg = (data && data.detail) ? data.detail : `Unexpected response status ${response.status}.`;
+        if (feedbackBox) {
+          feedbackBox.className = 'form-feedback is-visible is-error';
+          feedbackBox.textContent = `Registration Failed: ${errorMsg}`;
+        }
+      }
+    } catch (err) {
+      if (feedbackBox) {
+        feedbackBox.className = 'form-feedback is-visible is-error';
+        feedbackBox.innerHTML = `
+          <strong>CONNECTION OFFLINE:</strong> Unable to connect to the Blackout API service.<br>
+          <span style="color: var(--text-secondary); font-size: 0.85em;">
+            Please ensure the backend server is running and accessible at <code>${escapeHtml(getApiUrl('/register'))}</code>.
+          </span>
+        `;
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Register Operator';
+      }
     }
   });
 
